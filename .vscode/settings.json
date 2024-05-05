@@ -8,5 +8,10 @@
   },
   "[liquid]": {
     "editor.formatOnSave": true
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#093145",
+    "titleBar.activeBackground": "#0C4461",
+    "titleBar.activeForeground": "#F7FCFE"
   }
 }
