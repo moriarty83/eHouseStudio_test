@@ -346,6 +346,12 @@ h6,
   margin-block-end: 1.67em;
 }
 
+.headline {
+  font-size: 80px;
+  font-weight: 700;
+  margin: 0;
+}
+
 blockquote {
   font-style: italic;
   color: rgba(var(--color-foreground), 0.75);
@@ -2482,6 +2488,7 @@ product-info .loading__spinner:not(.hidden) ~ *,
   display: flex;
   grid-area: icons;
   justify-self: end;
+  align-items: center;
   padding-right: 0.8rem;
 }
 
