@@ -14,7 +14,7 @@
   width: 100%;
   object-fit: cover;
 }
-.hero__content {
+.hero__content-wrapper {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -24,13 +24,23 @@
   display: flex;
 }
 
-.hero__content .content-text {
+.hero__content-wrapper .content {
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
   text-align: center;
   width: 60%;
+  row-gap: 48px;
+}
+
+.content .text-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-self: start;
+  row-gap: 20px;
 }
 
 .hero__buttons {
@@ -39,6 +49,23 @@
   flex-wrap: wrap;
   gap: 1rem;
   word-break: break-word;
+}
+
+.text-content .surtitle,
+.text-content .title,
+.text-content .subtitle {
+  margin: 0;
+}
+
+.hero__media::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  background: #000000;
+  opacity: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
 }
 
 @media screen and (min-width: 750px) {

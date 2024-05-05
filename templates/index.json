@@ -53,81 +53,27 @@
         "section_padding": 0
       }
     },
-    "image_banner": {
-      "type": "image-banner",
+    "moriarty_card_with_image_pjXqWg": {
+      "type": "moriarty-card-with-image",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "button_tamW77": {
+          "type": "button",
           "settings": {
-            "heading": "Image banner",
-            "heading_size": "h0"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify:\/\/collections\/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "title": "Button",
+            "btn_link": "",
+            "btn_style": "primary"
           }
         }
       },
       "block_order": [
-        "heading",
-        "text",
-        "button"
+        "button_tamW77"
       ],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "image_behavior": "none",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
-      }
-    },
-    "rich_text": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text"
-      ],
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-1",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 0
+        "title": "Vacay This Way",
+        "surtitle": "",
+        "subtitle": "Everything you need for your summer get away!",
+        "color_scheme": "",
+        "section_padding": 0
       }
     },
     "featured_collection": {
@@ -267,8 +213,7 @@
   },
   "order": [
     "moriarty_hero_nx6fCw",
-    "image_banner",
-    "rich_text",
+    "moriarty_card_with_image_pjXqWg",
     "featured_collection",
     "collage",
     "video",

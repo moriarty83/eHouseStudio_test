@@ -1,0 +1,164 @@
+{{ 'section-image-with-text-card.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign full_width = '100vw'
+  assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+
+  if section.settings.image_behavior == 'ambient'
+    assign half_width = '60vw'
+    assign full_width = '120vw'
+    assign stacked_sizes = '(min-width: 750px) 60vw, 120vw'
+    assign widths = '450, 660, 900, 1320, 1800, 2136, 2400, 3600, 7680'
+  elsif section.settings.image_behavior == 'fixed' or section.settings.image_behavior == 'zoom-in'
+    assign half_width = '100vw'
+    assign stacked_sizes = '100vw'
+  else
+    assign half_width = '50vw'
+    assign stacked_sizes = '(min-width: 750px) 50vw, 100vw'
+  endif
+  assign fetch_priority = 'auto'
+  if section.index == 1
+    assign fetch_priority = 'high'
+  endif
+-%}
+
+<div
+  id="Card-with-Image-{{ section.id }}"
+  class="image-with-text-card color-{{ section.settings.color_scheme }}"
+  style="padding-top: {{ section.settings.section_padding }}px; padding-bottom: {{ section.settings.section_padding }}px;"
+>
+  <div class="image-with-text-card__media media{% if section.settings.image == blank %} placeholder{% endif %}">
+    {%- liquid
+      assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
+      assign sizes = full_width
+      assign image_class = 'hero__image'
+    -%}
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 3840
+        | image_tag:
+          width: section.settings.image.width,
+          height: image_height,
+          class: image_class,
+          sizes: sizes,
+          widths: widths,
+          fetchpriority: fetch_priority
+      }}
+    {% else %}
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+
+  <div class="image-with-text-card__whitespace">
+    
+  </div>
+  <div class="text-content__wrapper right">
+    <div class="text-card">
+        <div class="content">
+            <p>{{ section.settings.surtitle }}</p>
+            <h2>{{ section.settings.title }}</h2>
+            <p>{{ section.settings.subtitle }}</p>
+            <div class="buttons">
+                {% for block in section.blocks %}
+                    <a
+                        href="{{ block.settings.btn_link }}"
+                        class="button button--{{ block.settings.btn_style }}"
+                    >
+                        {{ block.settings.title }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image with Text Card",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "surtitle",
+      "label": "Surtitle",
+      "info": "Appears above headline"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "info": "Appears below headline"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section top & bottom paddng",
+      "default": 0,
+      "min": 0,
+      "max": 65,
+      "step": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Button",
+          "label": "Button Label"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "btn_style",
+          "label": "Button Style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            }
+          ],
+          "default": "primary"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with Text Card"
+    }
+  ]
+}
+{% endschema %}
