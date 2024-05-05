@@ -9,6 +9,12 @@
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
       <li>
+        {% assign font_color = '' %}
+        {% assign title = link.title | downcase %}
+        {% if link.title contains '_red_' %}
+          {% assign title = title | replace: '_red_', '' %}
+          {% assign font_color = '#FF2500' %}
+        {% endif %}
         {%- if link.links != blank -%}
           <header-menu>
             <details id="Details-HeaderMenu-{{ forloop.index }}">
@@ -17,11 +23,12 @@
                 class="header__menu-item list-menu__item link focus-inset"
               >
                 <span
+                  style="color: {{ font_color }}"
                   {%- if link.child_active %}
                     class="header__active-menu-item"
                   {% endif %}
                 >
-                  {{- link.title | escape -}}
+                  {{ title | escape }}
                 </span>
                 {% render 'icon-caret' %}
               </summary>
@@ -92,8 +99,9 @@
               {%- if link.current %}
                 class="header__active-menu-item"
               {% endif %}
+              style="color: {{ font_color }}"
             >
-              {{- link.title | escape -}}
+              {{ title | escape }}
             </span>
           </a>
         {%- endif -%}
