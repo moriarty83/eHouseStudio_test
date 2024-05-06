@@ -1,11 +1,17 @@
-{{ 'section-page-hero.css' | asset_url | stylesheet_tag }}
+{{ 'moriarty-page-hero.css' | asset_url | stylesheet_tag }}
 
+{% comment %}
+  QUESTION FOR DESIGNER: Should we include a color overlay option to help increase text/image contrast.
+{% endcomment %}
+
+{% comment %} OPACITY {% endcomment %}
 {%- style -%}
   #Hero-media-{{ section.id }}::after {
     opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};
   }
 {%- endstyle -%}
 
+{% comment %} Set Image Widths and settings. {% endcomment %}
 {%- liquid
   assign full_width = '100vw'
   assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
@@ -27,12 +33,13 @@
     assign fetch_priority = 'high'
   endif
 -%}
-
+{% comment %} PARENT {% endcomment %}
 <div
   id="Hero-{{ section.id }}"
-  class="page-hero banner--content-align-{{ section.settings.desktop_content_alignment }} color-{{ section.settings.color_scheme }}"
-  style="padding-top: {{ section.settings.section_padding }}px; padding-bottom: {{ section.settings.section_padding }}px;"
+  class="page-hero hero__content-{{ section.settings.desktop_content_alignment }} color-{{ section.settings.color_scheme }}"
+  style="padding-top: {{ section.settings.section_padding_top }}px; padding-bottom: {{ section.settings.section_padding_bottom }}px;"
 >
+  {% comment %} IMAGE {% endcomment %}
   {%- if section.settings.image != blank -%}
     <div
       id="#Hero-media-{{ section.id }}"
@@ -56,8 +63,10 @@
       }}
     </div>
   {%- endif -%}
+  {% comment %} CONTENT {% endcomment %}
   <div class="hero__content-wrapper hero__content--{{ section.settings.desktop_content_position }}">
     <div class="content">
+      {% comment %} TEXT {% endcomment %}
       <div class="text-content">
         <p class="surtitle">{{ section.settings.surtitle }}</p>
         <h2 class="headline">{{ section.settings.title }}</h2>
@@ -66,6 +75,7 @@
       <div
         class="hero__buttons"
       >
+        {% comment %} BUTTONS {% endcomment %}
         {%- for block in section.blocks -%}
           <a
             {{ block.shopify_attributes }}
@@ -75,7 +85,7 @@
             {% else %}
               href="{{ block.settings.btn_link }}"
             {% endif %}
-            class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"
+            class="button{% if block.settings.btn_style == "secondary" %} button--secondary{% else %} button--primary{% endif %}"
           >
             {{- block.settings.title | escape -}}
           </a>
@@ -177,8 +187,17 @@
     },
     {
       "type": "range",
-      "id": "section_padding",
-      "label": "Section top & bottom paddng",
+      "id": "section_padding_top",
+      "label": "Section top paddng",
+      "default": 0,
+      "min": 0,
+      "max": 65,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section bottom paddng",
       "default": 0,
       "min": 0,
       "max": 65,

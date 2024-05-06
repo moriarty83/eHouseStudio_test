@@ -1,0 +1,92 @@
+{% comment %} STYLESHEET {% endcomment %}
+{{ 'moriarty-icon-banner.css' | asset_url | stylesheet_tag }}
+
+{% comment %} IMAGE SPECS {% endcomment %}
+{%- liquid
+  assign widths = '100, 300, 500'
+
+  assign fetch_priority = 'auto'
+  if section.index == 1
+    assign fetch_priority = 'high'
+  endif
+-%}
+
+{% comment %} SECTION {% endcomment %}
+<div
+  class="icon-banner color-{{ section.settings.color_scheme }}"
+  style="padding-top: {{ section.settings.section_padding_top }}px; padding-bottom: {{ section.settings.section_padding_bottom }}px;"
+>
+  {% for block in section.blocks %}
+    <div class="icon-banner__item">
+      <div class="icon-banner__icon">
+        {{
+          block.settings.image
+          | image_url: width: 3840
+          | image_tag: width: section.settings.image.width, widths: widths, fetchpriority: fetch_priority
+        }}
+      </div>
+      <div class="icon-banner__content">
+        <h3>{{ block.settings.title }}</h3>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Icon Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "info": "Interal use only, does not display in section"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section top paddng",
+      "default": 0,
+      "min": 0,
+      "max": 65,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section bottom paddng",
+      "default": 0,
+      "min": 0,
+      "max": 65,
+      "step": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "Icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon",
+          "info": "Recommended size: 100x100"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon Banner",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

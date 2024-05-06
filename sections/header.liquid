@@ -1,3 +1,8 @@
+{% comment %} 
+  DECISION: How to make Sale red. Did this by identifying _red_ in the nav menu and doing a 'contains' check. This allows the store owner to have contrl of what is red.
+  DECISION: Create a new color schema. The blacks and blues are a little bit different that Dawn has out of hte box so I created a new schema for this.
+{% endcomment %}
+
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
