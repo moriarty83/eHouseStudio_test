@@ -73,4 +73,4 @@ Separator Bars between links and the cart icon was something that gave me a bit 
 
 For the links in the Featured Content card, I used the ~ selector which I've never used before. This allows selecting of an element if the element before it matches a selector, e.g. `.myclass ~ .yourclass` will style elements with the 'yourclass' class only if it is preceded by an element with 'myclass'.
 
-In the header, this wasn't going to work as well due to spacing reasons and a ::before or ::after wasn't working well so I created a `<divider>` element and styled it appropriately.
+In the header, the ~ selector wasn't going to work as well due to spacing and a ::before or ::after wasn't working well so I created a `<divider>` element and styled it appropriately. 
