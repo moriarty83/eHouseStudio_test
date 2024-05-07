@@ -1,27 +1,3 @@
-{% comment %}
-  My Process:
-      1. Create seciton liquid and corresponding css file.
-      2. Create empty parent div
-      3. create schema.
-      4. Add section padding styles to parent div and primary section class.
-{% endcomment %}
-
-{% comment %}
-  Tricky Business:
-      This section seems like its a featuerd collection section but the fact that one card has multiple links makes it a bit tricky.
-      The links will need to point to the New Arrivals collection but then should filter that collection by men/women/etc.
-      The easies way is to just have the store owner copy and paste the link from the collecton with appropriate filter they want but that's
-      not the user experience for the store owner I would like. I'd prefer to make it dyamic somehow.
-
-      Decision Made: I decided to make this a compnent with a max of 2 cards, and then use blocks for links. This let me factor code into snippets more easily and make the admin UI less messy.
-      Decision Made: When text in figma was in all caps, I decided to just paste this in as is instead of using | upcase filters. In the short term this provides the store admin more flexibility though I might not select that option long term.
-{% endcomment %}
-
-{% comment %}
-  Question for designer: What is the specific use case for this? Collections or other content? Do we want to limit the number of items a store admin can add to this seciton to two? If not, how many and how do we want to manage more than 2 on desktop?
-  For now, I'm limiting it to two.
-{% endcomment %}
-
 {% comment %} STYLESHEET {% endcomment %}
 {{ 'moriarty-featured-content.css' | asset_url | stylesheet_tag }}
 
@@ -42,6 +18,7 @@
   class="featured-content color-{{ section.settings.color_scheme }}"
   style="padding-top: {{ section.settings.section_padding_top }}px; padding-bottom: {{ section.settings.section_padding_bottom }}px"
 >
+  {% comment %} CARD 1 {% endcomment %}
   <div class="featured-content__cards">
     {% render 'moriarty-featured-content-card',
       image: ss.card_1_image,
@@ -49,6 +26,7 @@
       subtitle: ss.card_1_subtitle,
       card: 'card_1'
     %}
+    {% comment %} CARD 2 {% endcomment %}
     {% if ss.card_count == 'cards_2' %}
       {% render 'moriarty-featured-content-card',
         image: ss.card_2_image,
@@ -60,6 +38,7 @@
   </div>
 </div>
 
+{% comment %} SCHEMA {% endcomment %}
 {% schema %}
 {
   "name": "Featured Content Cards",

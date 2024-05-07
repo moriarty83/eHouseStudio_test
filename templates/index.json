@@ -50,7 +50,7 @@
         "subtitle": "",
         "color_scheme": "scheme-77f0b902-7138-4ff0-a53f-f5713880e815",
         "desktop_content_position": "middle-left",
-        "section_padding_top": 0,
+        "section_padding_top": 30,
         "section_padding_bottom": 0
       }
     },
@@ -76,8 +76,8 @@
         "surtitle": "",
         "subtitle": "Everything you need for your summer get away!",
         "color_scheme": "",
-        "section_padding_top": 0,
-        "section_padding_bottom": 0
+        "section_padding_top": 35,
+        "section_padding_bottom": 35
       }
     },
     "moriarty_featured_content_wW6PQk": {
@@ -141,8 +141,8 @@
         "card_2_image": "shopify:\/\/shop_images\/dorm-image.png",
         "card_2_title": "COLLEGE BOUND",
         "card_2_subtitle": "New places and new faces. Same great style.",
-        "section_padding_top": 10,
-        "section_padding_bottom": 0
+        "section_padding_top": 35,
+        "section_padding_bottom": 35
       }
     },
     "moriarty_icon_banner_YnJqbX": {
@@ -177,8 +177,8 @@
       ],
       "settings": {
         "title": "",
-        "section_padding_top": 45,
-        "section_padding_bottom": 45
+        "section_padding_top": 35,
+        "section_padding_bottom": 35
       }
     }
   },

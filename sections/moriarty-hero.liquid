@@ -4,7 +4,7 @@
   QUESTION FOR DESIGNER: Should we include a color overlay option to help increase text/image contrast.
 {% endcomment %}
 
-{% comment %} Set Image Widths and settings. {% endcomment %}
+{% comment %} IMAGE SPECS {% endcomment %}
 {%- liquid
   assign full_width = '100vw'
   assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
@@ -26,26 +26,22 @@
     assign fetch_priority = 'high'
   endif
 -%}
-{% comment %} PARENT {% endcomment %}
+{% comment %} SECTION {% endcomment %}
 <div
   id="Hero-{{ section.id }}"
   class="page-hero hero__content-{{ section.settings.desktop_content_alignment }} color-{{ section.settings.color_scheme }}"
   style="padding-top: {{ section.settings.section_padding_top }}px; padding-bottom: {{ section.settings.section_padding_bottom }}px;"
 >
-  {% comment %} IMAGE {% endcomment %}
+  {% comment %} IMAGES {% endcomment %}
   {%- if section.settings.image != blank -%}
     <div
       class="hero__media{% if section.settings.image == blank %} placeholder{% endif %}"
     >
+      {% comment %} DESKTOP IMAGE {% endcomment %}
       {%- liquid
         assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
         assign sizes = full_width
         assign image_class = 'hero__image image-desktop'
-      -%}
-      {%- liquid
-        assign image_height_mobile = section.settings.mobile_image.width | divided_by: section.settings.image.aspect_ratio
-        assign sizes_mobile = full_width
-        assign image_class_mobile = 'hero__image image-mobile'
       -%}
       {{
         section.settings.image
@@ -58,6 +54,12 @@
           widths: widths,
           fetchpriority: fetch_priority
       }}
+      {% comment %} MOBILE IMAGE {% endcomment %}
+      {%- liquid
+        assign image_height_mobile = section.settings.mobile_image.width | divided_by: section.settings.image.aspect_ratio
+        assign sizes_mobile = full_width
+        assign image_class_mobile = 'hero__image image-mobile'
+      -%}
       {{
         section.settings.mobile_image
         | image_url: width: 3840
@@ -72,7 +74,7 @@
     </div>
   {%- endif -%}
 
-  {% comment %} CONTENT {% endcomment %}
+  {% comment %} CONTENT WRAPPER {% endcomment %}
   <div class="hero__content-wrapper hero__content--{{ section.settings.desktop_content_position }}">
     <div class="content">
       {% comment %} TEXT {% endcomment %}
@@ -104,6 +106,7 @@
   </div>
 </div>
 
+{% comment %} SCHEMA {% endcomment %}
 {% schema %}
 {
   "name": "Page Hero",
@@ -193,7 +196,7 @@
     {
       "type": "range",
       "id": "section_padding_top",
-      "label": "Section top paddng",
+      "label": "Section top padding",
       "default": 0,
       "min": 0,
       "max": 65,
@@ -202,7 +205,7 @@
     {
       "type": "range",
       "id": "section_padding_bottom",
-      "label": "Section bottom paddng",
+      "label": "Section bottom padding",
       "default": 0,
       "min": 0,
       "max": 65,

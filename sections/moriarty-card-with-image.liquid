@@ -1,8 +1,7 @@
+{% comment %} STYLESHEET {% endcomment %}
 {{ 'moriarty-image-with-text-card.css' | asset_url | stylesheet_tag }}
 
-{% comment %} SET IMAGE WIDTHS AND SETTINGS {% endcomment %}
-
-{% comment %} QUESTION: On mobile shoudl the text card be set off to the left like in Figma or centered? Just double checking. {% endcomment %}
+{% comment %} IMAGE SPECS {% endcomment %}
 {%- liquid
   assign full_width = '100vw'
   assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
@@ -13,10 +12,13 @@
   endif
 -%}
 
+{% comment %} SECTION {% endcomment %}
+
 <div
   class="image-with-text-card color-{{ section.settings.color_scheme }} {{ section.settings.style }}"
   style="padding-top: {{ section.settings.section_padding_top }}px; padding-bottom: {{ section.settings.section_padding_bottom }}px;"
 >
+  {% comment %} IMAGE {% endcomment %}
   <div class="image-with-text-card__media media{% if section.settings.image == blank %} placeholder{% endif %}">
     {%- liquid
       assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
@@ -39,9 +41,12 @@
     {%- endif -%}
   </div>
 
+  {% comment %} WHITESPACE {% endcomment %}
   <div class="image-with-text-card__whitespace">
     
   </div>
+
+  {% comment %} TEXT CONTENT {% endcomment %}
   <div class="text-content__wrapper {{ section.settings.style }}">
     <div class="text-card">
         <div class="content {{ section.settings.style }}">
@@ -64,6 +69,7 @@
     </div>
 </div>
 
+{% comment %} SCHEMA {% endcomment %}
 {% schema %}
 {
   "name": "Image with Text Card",
@@ -119,7 +125,7 @@
     {
         "type": "range",
         "id": "section_padding_top",
-        "label": "Section top paddng",
+        "label": "Section top padding",
         "default": 0,
         "min": 0,
         "max": 65,
@@ -128,7 +134,7 @@
       {
         "type": "range",
         "id": "section_padding_bottom",
-        "label": "Section bottom paddng",
+        "label": "Section bottom padding",
         "default": 0,
         "min": 0,
         "max": 65,

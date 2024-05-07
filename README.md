@@ -1,99 +1,76 @@
-# Dawn
+# Christopher Moriarty - eHouse Studio Shopify Assessment
+May 7, 2024
 
-[![Build status](https://github.com/shopify/dawn/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Shopify/dawn/actions/workflows/ci.yml?query=branch%3Amain)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?color=informational)](/.github/CONTRIBUTING.md)
+## Files Written/Adjusted
+### /assets/
+1. moriarty-featured-content.css
+2. moriarty-header.css
+3. moriarty-icon-banner.css
+4. moriarty-image-with-text-card.css
+5. moriarty-page-hero.css
+### /sections/
+1. header.liquid
+2. moriarty-card-with-image.liquid
+3. moriarty-featured-content.liquid
+4. moriarty-hero.liquid
+5. moriarty-icon-banner.liquid
+### /snippets/
+1. moriarty-featured-content-cared.liquid
+2. moriarty-icon-hamburger.liquid
+3. moriarty-search-form.liquid
+## Process Overview
+I started by spinning up an instance of dawn using `shopify theme init`.
 
-[Getting started](#getting-started) |
-[Staying up to date with Dawn changes](#staying-up-to-date-with-dawn-changes) |
-[Developer tools](#developer-tools) |
-[Contributing](#contributing) |
-[Code of conduct](#code-of-conduct) |
-[Theme Store submission](#theme-store-submission) |
-[License](#license)
+From there I determined I would create 4 sections. I created the section .liquid files and their corresponding .css files in the assets folder. When building a section I try to comment where major components will exist, in most of these instances that includes comments to identify the stylesheet, image specs, main section, schema, and thinkgs like images, cards, button groups, ect.
 
-Dawn represents a HTML-first, JavaScript-only-as-needed approach to theme development. It's Shopify's first source available theme with performance, flexibility, and [Online Store 2.0 features](https://www.shopify.com/partners/blog/shopify-online-store) built-in and acts as a reference for building Shopify themes.
+The exception was header.liquid. Rather than creating a new moriarty-header.liquid, I decided to gut the existing header section so I could keep a few things like the 'icon-width' setting which I like intact.
 
-* **Web-native in its purest form:** Themes run on the [evergreen web](https://www.w3.org/2001/tag/doc/evergreen-web/). We leverage the latest web browsers to their fullest, while maintaining support for the older ones through progressive enhancement—not polyfills.
-* **Lean, fast, and reliable:** Functionality and design defaults to “no” until it meets this requirement. Code ships on quality. Themes must be built with purpose. They shouldn’t support each and every feature in Shopify.
-* **Server-rendered:** HTML must be rendered by Shopify servers using Liquid. Business logic and platform primitives such as translations and money formatting don’t belong on the client. Async and on-demand rendering of parts of the page is OK, but we do it sparingly as a progressive enhancement.
-* **Functional, not pixel-perfect:** The Web doesn’t require each page to be rendered pixel-perfect by each browser engine. Using semantic markup, progressive enhancement, and clever design, we ensure that themes remain functional regardless of the browser.
+After the initial setup I'll build out the HTML to be sure all the content (images, text, links) appear more or less how I want to without any styles. Then style the elements. Often during this process it becomes clear when a reusable snippet is worth making so usually build one within the section and then extract it to a separte file and `render` it.
 
-You can find a more detailed version of our theme code principles in the [contribution guide](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md#theme-code-principles).
+After building a desktop-friendly section I'll add a media-query section to my css and adapt the section for mobile. Sometimes I'll opt for developing for mobile first and then going to desktop but, that is usually based on whether or not the desings for one device or the other will result in more complex styling. I'll usually do the complex one first and then strip out the complexities to achieve the simpler design.
 
-## Getting started
-We recommend using Dawn as a starting point for theme development. [Learn more on Shopify.dev](https://shopify.dev/themes/getting-started/create).
 
-> If you're building a theme for the Shopify Theme Store, then you can use Dawn as a starting point. However, the theme that you submit needs to be [substantively different from Dawn](https://shopify.dev/themes/store/requirements#uniqueness) so that it provides added value for merchants. Learn about the [ways that you can use Dawn](https://shopify.dev/themes/tools/dawn#ways-to-use-dawn).
 
-Please note that the main branch may include code for features not yet released. The "stable" version of Dawn is available in the theme store.
+## Code Decisions
+### Separate css files
+Because Dawn tends to use separate css files for most of its sections, I decided to stick with this practice. For some projects I'll opt to do section specific styles within the a `<style>` tag so its easier to find those styles later. That didn't seem necessary here.
 
-## Staying up to date with Dawn changes
+### BEM CSS
+Here I decided to stick with the Block/Element/Modifier style of CSS that Dawn seems predominant in Dawn. Sometimes I have a preferance for a more Object Oriented naming convention but I feel like Shopify Sections in general lend themselves to BEM a bit more with the exception of some elements that should probably remain universal site-wide like button styles.
 
-Say you're building a new theme off Dawn but you still want to be able to pull in the latest changes, you can add a remote `upstream` pointing to this Dawn repository.
+### Section Padding Settings
+For all sections I added settings to adjust the section padding. This is just a quick and easy tool I like to add that helps store admins achieve a bit more of the look they're after.
 
-1. Navigate to your local theme folder.
-2. Verify the list of remotes and validate that you have both an `origin` and `upstream`:
-```sh
-git remote -v
-```
-3. If you don't see an `upstream`, you can add one that points to Shopify's Dawn repository:
-```sh
-git remote add upstream https://github.com/Shopify/dawn.git
-```
-4. Pull in the latest Dawn changes into your repository:
-```sh
-git fetch upstream
-git pull upstream main
-```
+### Nav Link Color
+How to make the 'SALE' link red? I decided to do this with an '_red_' string i the actual menu. If a link has this string, its stripped out but and the color style is set to red. Again, this allows store owners to have a quick and easy way to control this property on any link the want.
 
-## Developer tools
+### Text Case
+When text in figma was in all caps, I decided to just paste this in as is instead of using | upcase filters. In the short term this provides the store admin more flexibility though I might not select that option long term.
 
-There are a number of really useful tools that the Shopify Themes team uses during development. Dawn is already set up to work with these tools.
+### Featured Content Section
+This section looked like it could have been considered one for Featured Collections or, more broadly, featured content. I went with featured content. I also decided that the section would only be two 'cards' long (at most) and instead of the section blocks being the cards, it would be the card links.
 
-### Shopify CLI
+If a 'block' was a card, and each card could have up to four links, it seemed like the blocks would get very cluttered. By limiting the cards to two, and then having the blocks be a link that could be assigned to card 1 or card 2, I feel like I achieved a higher level of usability for store admins.
 
-[Shopify CLI](https://github.com/Shopify/shopify-cli) helps you build Shopify themes faster and is used to automate and enhance your local development workflow. It comes bundled with a suite of commands for developing Shopify themes—everything from working with themes on a Shopify store (e.g. creating, publishing, deleting themes) or launching a development server for local theme development.
+## Questions for the Designer
+### On the Hero Section
+Should we add an overlay to make sure there can always be good contrast from the text to background image? Before the image switches to mobile, the dark text can be hard as the window gets smaller.
 
-You can follow this [quick start guide for theme developers](https://shopify.dev/docs/themes/tools/cli) to get started.
+### On the Card with Image section
+When on mobile, do we intend to have the text content still left aligned, both it's container and the content itself or should it be centered?
 
-### Theme Check
+### On the Featured Content
+Should this be a Featured Collection seciton or have broader usability?
 
-We recommend using [Theme Check](https://github.com/shopify/theme-check) as a way to validate and lint your Shopify themes.
+How many cards should we allow each section to have? Is two per section a good maximum?
 
-We've added Theme Check to Dawn's [list of VS Code extensions](/.vscode/extensions.json) so if you're using Visual Studio Code as your code editor of choice, you'll be prompted to install the [Theme Check VS Code](https://marketplace.visualstudio.com/items?itemName=Shopify.theme-check-vscode) extension upon opening VS Code after you've forked and cloned Dawn.
+## Challenges
+### Image Rendering Size
+This is something that I almost always need to double check and review as far as using shopify's `| image_tag` filter so I can pass the correct srcset and other attributes to the image tag. It just isn't something that's second nature to me yet like many of liquid's other filtering methods or quirky behaviors.
 
-You can also run it from a terminal with the following Shopify CLI command:
+### Separator Bars
+Separator Bars between links and the cart icon was something that gave me a bit of pause.
 
-```bash
-shopify theme check
-```
+For the links in the Featured Content card, I used the ~ selector which I've never used before. This allows selecting of an element if the element before it matches a selector, e.g. `.myclass ~ .yourclass` will style elements with the 'yourclass' class only if it is preceded by an element with 'myclass'.
 
-### Continuous Integration
-
-Dawn uses [GitHub Actions](https://github.com/features/actions) to maintain the quality of the theme. [This is a starting point](https://github.com/Shopify/dawn/blob/main/.github/workflows/ci.yml) and what we suggest to use in order to ensure you're building better themes. Feel free to build off of it!
-
-#### Shopify/lighthouse-ci-action
-
-We love fast websites! Which is why we created [Shopify/lighthouse-ci-action](https://github.com/Shopify/lighthouse-ci-action). This runs a series of [Google Lighthouse](https://developers.google.com/web/tools/lighthouse) audits for the home, product and collections pages on a store to ensure code that gets added doesn't degrade storefront performance over time.
-
-#### Shopify/theme-check-action
-
-Dawn runs [Theme Check](#Theme-Check) on every commit via [Shopify/theme-check-action](https://github.com/Shopify/theme-check-action).
-
-## Contributing
-
-Want to make commerce better for everyone by contributing to Dawn? We'd love your help! Please read our [contributing guide](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md) to learn about our development process, how to propose bug fixes and improvements, and how to build for Dawn.
-
-## Code of conduct
-
-All developers who wish to contribute through code or issues, please first read our [Code of Conduct](https://github.com/Shopify/dawn/blob/main/.github/CODE_OF_CONDUCT.md).
-
-## Theme Store submission
-
-The [Shopify Theme Store](https://themes.shopify.com/) is the place where Shopify merchants find the themes that they'll use to showcase and support their business. As a theme partner, you can create themes for the Shopify Theme Store and reach an international audience of an ever-growing number of entrepreneurs.
-
-Ensure that you follow the list of [theme store requirements](https://shopify.dev/themes/store/requirements) if you're interested in becoming a [Shopify Theme Partner](https://themes.shopify.com/services/themes/guidelines) and building themes for the Shopify platform.
-
-## License
-
-Copyright (c) 2021-present Shopify Inc. See [LICENSE](/LICENSE.md) for further details.
+In the header, this wasn't going to work as well due to spacing reasons and a ::before or ::after wasn't working well so I created a `<divider>` element and styled it appropriately.
