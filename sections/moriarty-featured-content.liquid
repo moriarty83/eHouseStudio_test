@@ -12,10 +12,13 @@
       The links will need to point to the New Arrivals collection but then should filter that collection by men/women/etc.
       The easies way is to just have the store owner copy and paste the link from the collecton with appropriate filter they want but that's
       not the user experience for the store owner I would like. I'd prefer to make it dyamic somehow.
+
+      Decision Made: I decided to make this a compnent with a max of 2 cards, and then use blocks for links. This let me factor code into snippets more easily and make the admin UI less messy.
+      Decision Made: When text in figma was in all caps, I decided to just paste this in as is instead of using | upcase filters. In the short term this provides the store admin more flexibility though I might not select that option long term.
 {% endcomment %}
 
 {% comment %}
-  Question for designer: Do we want to limit the number of items a store admin can add to this seciton to two? If not, how many and how do we want to manage more than 2 on desktop?
+  Question for designer: What is the specific use case for this? Collections or other content? Do we want to limit the number of items a store admin can add to this seciton to two? If not, how many and how do we want to manage more than 2 on desktop?
   For now, I'm limiting it to two.
 {% endcomment %}
 
@@ -33,31 +36,27 @@
 -%}
 
 {% comment %} SECTION {% endcomment %}
+{% assign ss = section.settings %}
 
 <div
   class="featured-content color-{{ section.settings.color_scheme }}"
-  style="padding-top: {{ section.settings.section_padding_top }}; padding-bottom: {{ section.settings.section_padding_bottom }}"
+  style="padding-top: {{ section.settings.section_padding_top }}px; padding-bottom: {{ section.settings.section_padding_bottom }}px"
 >
   <div class="featured-content__cards">
-    {% for block in section.blocks %}
-      <div class="card">
-        <div class="card__image">
-          {% if block.settings.image != blank %}
-            {{
-              block.settings.image
-              | image_url: width: 1800
-              | image_tag: width: section.settings.image.width, widths: widths, fetchpriority: fetch_priority
-            }}
-          {% else %}
-            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
-          {%- endif -%}
-        </div>
-        <div class="featured_collection__text">
-          <h3>{{ block.settings.collection.title }}</h3>
-          <p>{{ block.settings.subtitle }}</p>
-        </div>
-      </div>
-    {% endfor %}
+    {% render 'moriarty-featured-content-card',
+      image: ss.card_1_image,
+      title: ss.card_1_title,
+      subtitle: ss.card_1_subtitle,
+      card: 'card_1'
+    %}
+    {% if ss.card_count == 'cards_2' %}
+      {% render 'moriarty-featured-content-card',
+        image: ss.card_2_image,
+        title: ss.card_2_title,
+        subtitle: ss.card_2_subtitle,
+        card: 'card_2'
+      %}
+    {% endif %}
   </div>
 </div>
 
@@ -75,6 +74,63 @@
       "id": "color_scheme",
       "label": "Color Scheme"
     },
+    {
+      "type": "select",
+      "id": "card_count",
+      "label": "Number of Cards",
+      "options": [
+        {
+          "label": "1",
+          "value": "cards_1"
+        },
+        {
+          "label": "2",
+          "value": "cards_2"
+        }
+      ],
+      "default": "cards_2"
+    },
+    {
+      "type": "header",
+      "content": "First Card"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_1_image",
+      "label": "Image"
+    },
+
+    {
+      "type": "text",
+      "id": "card_1_title",
+      "label": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "card_1_subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "header",
+      "content": "Second Card"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_2_image",
+      "label": "Image"
+    },
+
+    {
+      "type": "text",
+      "id": "card_2_title",
+      "label": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "card_2_subtitle",
+      "label": "Subtitle"
+    },
+
     {
       "type": "range",
       "id": "section_padding_top",
@@ -96,47 +152,35 @@
   ],
   "blocks": [
     {
-      "type": "image_card",
-      "name": "Image Card",
-      "limit": 2,
+      "type": "card_link",
+      "name": "Card Link",
+      "limit": 8,
       "settings": [
         {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "header",
-          "content": "Text"
+          "type": "select",
+          "id": "assigned_to",
+          "label": "Assign to",
+          "info": "Do not assing more than 4 links per card",
+          "options": [
+            {
+              "label": "First Card",
+              "value": "card_1"
+            },
+            {
+              "label": "Second Card",
+              "value": "card_2"
+            }
+          ],
+          "default": "card_1"
         },
         {
           "type": "text",
           "id": "title",
-          "label": "Headline"
-        },
-        {
-          "type": "text",
-          "id": "subtitle",
-          "label": "Subtitle"
+          "label": "Text"
         },
         {
           "type": "url",
-          "id": "link_1",
-          "label": "URL"
-        },
-        {
-          "type": "url",
-          "id": "link_2",
-          "label": "URL"
-        },
-        {
-          "type": "url",
-          "id": "link_3",
-          "label": "URL"
-        },
-        {
-          "type": "url",
-          "id": "link_4",
+          "id": "link",
           "label": "URL"
         }
       ]

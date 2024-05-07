@@ -1,0 +1,30 @@
+<article class="card">
+  <div class="card__image">
+    {% if image != blank %}
+      {{
+        image
+        | image_url: width: 1800
+        | image_tag: width: section.settings.image.width, widths: widths, fetchpriority: fetch_priority
+      }}
+    {% else %}
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+  <div class="featured_content__wrapper">
+    <div class="featured_content__text">
+      <h3>{{ title }}</h3>
+      <p>{{ subtitle }}</p>
+
+      {% comment %} LINK BLOCKS {% endcomment %}
+      <div class="featured_content_links__wrapper">
+        {% comment %} Loop through blocks and assign those with the same card assigment {% endcomment %}
+        {% for block in section.blocks %}
+          {% assign bs = block.settings %}
+          {% if bs.assigned_to == card %}
+            <a class="featured_content_link" href="{{ bs.link }}">{{ bs.title }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</article>

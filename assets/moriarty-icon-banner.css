@@ -25,3 +25,11 @@
   font-size: 20px;
   text-align: center;
 }
+
+@media screen and (max-width: 749px) {
+  .icon-banner {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 42px;
+  }
+}

@@ -44,10 +44,10 @@
       ],
       "settings": {
         "image": "shopify:\/\/shop_images\/hero.png",
+        "mobile_image": "shopify:\/\/shop_images\/mobilehero-image.png",
         "title": "50% OFF\nEVERYTHING",
         "surtitle": "IN STORES & ONLINE",
         "subtitle": "",
-        "image_overlay_opacity": 0,
         "color_scheme": "scheme-77f0b902-7138-4ff0-a53f-f5713880e815",
         "desktop_content_position": "middle-left",
         "section_padding_top": 0,
@@ -83,39 +83,65 @@
     "moriarty_featured_content_wW6PQk": {
       "type": "moriarty-featured-content",
       "blocks": {
-        "image_card_bqEtHR": {
-          "type": "image_card",
+        "card_link_6W6x9b": {
+          "type": "card_link",
           "settings": {
-            "image": "shopify:\/\/shop_images\/new-arrivals-image.png",
-            "title": "",
-            "subtitle": "",
-            "link_1": "",
-            "link_2": "",
-            "link_3": "",
-            "link_4": ""
+            "assigned_to": "card_1",
+            "title": "WOMEN",
+            "link": "shopify:\/\/collections"
           }
         },
-        "image_card_b398DE": {
-          "type": "image_card",
+        "card_link_HjMWAf": {
+          "type": "card_link",
           "settings": {
-            "image": "shopify:\/\/shop_images\/dorm-image.png",
-            "title": "",
-            "subtitle": "",
-            "link_1": "",
-            "link_2": "",
-            "link_3": "",
-            "link_4": ""
+            "assigned_to": "card_1",
+            "title": "MEN",
+            "link": ""
+          }
+        },
+        "card_link_n6pH9m": {
+          "type": "card_link",
+          "settings": {
+            "assigned_to": "card_1",
+            "title": "KIDS",
+            "link": ""
+          }
+        },
+        "card_link_imBYFJ": {
+          "type": "card_link",
+          "settings": {
+            "assigned_to": "card_1",
+            "title": "HOME",
+            "link": ""
+          }
+        },
+        "card_link_HrYNWF": {
+          "type": "card_link",
+          "settings": {
+            "assigned_to": "card_2",
+            "title": "SHOP DORM DECOR",
+            "link": ""
           }
         }
       },
       "block_order": [
-        "image_card_bqEtHR",
-        "image_card_b398DE"
+        "card_link_6W6x9b",
+        "card_link_HjMWAf",
+        "card_link_n6pH9m",
+        "card_link_imBYFJ",
+        "card_link_HrYNWF"
       ],
       "settings": {
         "title": "",
         "color_scheme": "",
-        "section_padding_top": 0,
+        "card_count": "cards_2",
+        "card_1_image": "shopify:\/\/shop_images\/new-arrivals-image.png",
+        "card_1_title": "NEW ARRIVALS",
+        "card_1_subtitle": "Our latest Summer styles. Fresh. Fun. Fabulous.",
+        "card_2_image": "shopify:\/\/shop_images\/dorm-image.png",
+        "card_2_title": "COLLEGE BOUND",
+        "card_2_subtitle": "New places and new faces. Same great style.",
+        "section_padding_top": 10,
         "section_padding_bottom": 0
       }
     },

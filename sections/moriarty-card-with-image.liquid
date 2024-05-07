@@ -1,6 +1,8 @@
 {{ 'moriarty-image-with-text-card.css' | asset_url | stylesheet_tag }}
 
 {% comment %} SET IMAGE WIDTHS AND SETTINGS {% endcomment %}
+
+{% comment %} QUESTION: On mobile shoudl the text card be set off to the left like in Figma or centered? Just double checking. {% endcomment %}
 {%- liquid
   assign full_width = '100vw'
   assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
